@@ -14,7 +14,7 @@ public class ApplicationFactory {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             LargeAreaInput area = objectMapper.readValue(input, LargeAreaInput.class);
-            return LargeArea.of(Coordinates.of(area.getMin_lon(), area.getMin_lat()));
+            return LargeArea.of(Coordinates.of(area.getMinLon(), area.getMinLat()));
 
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Converting input to JSON failed", e);
