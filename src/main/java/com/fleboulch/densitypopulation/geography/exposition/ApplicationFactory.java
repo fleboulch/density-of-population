@@ -20,4 +20,8 @@ public class ApplicationFactory {
             throw new RuntimeException("Converting input to JSON failed", e);
         }
     }
+
+    public static CountPoiResponse toResponse(int nbPois) {
+        return new CountPoiResponse(nbPois);
+    }
 }
