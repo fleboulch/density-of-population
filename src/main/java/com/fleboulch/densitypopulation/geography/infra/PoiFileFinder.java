@@ -1,13 +1,16 @@
 package com.fleboulch.densitypopulation.geography.infra;
 
-import com.fleboulch.densitypopulation.geography.domain.Coordinates;
 import com.fleboulch.densitypopulation.geography.domain.Poi;
+import com.fleboulch.densitypopulation.geography.infra.helper.FileConverter;
 
 import java.util.List;
 
 public class PoiFileFinder {
 
+    public static final String FILE_PATH = "config.tsv";
+
     public List<Poi> find() {
-        return List.of(new Poi("id1", Coordinates.of(0, 0)));
+        return FileConverter.toDomain(FILE_PATH);
     }
+
 }
