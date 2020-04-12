@@ -47,4 +47,8 @@ public class Coordinates {
                 ", latitude=" + latitude +
                 '}';
     }
+
+    public Coordinates increment() {
+        return new Coordinates(this.longitude.increment(), this.latitude.increment());
+    }
 }

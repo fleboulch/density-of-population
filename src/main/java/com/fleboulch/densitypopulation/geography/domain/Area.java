@@ -9,17 +9,14 @@ public class Area {
     private final Coordinates minCoordinates;
     private final Coordinates maxCoordinates;
 
-    private Area(Coordinates minCoordinates, Coordinates maxCoordinates) {
+    protected Area(Coordinates minCoordinates, Coordinates maxCoordinates) {
         this.minCoordinates = Domain.validateNotNull(minCoordinates, "An area should have a non null min coordinates");
         this.maxCoordinates = Domain.validateNotNull(maxCoordinates, "An area should have a non null max coordinates");;
     }
 
-    public static Area of(Coordinates minCoordinates, Coordinates maxCoordinates) {
-        return new Area(minCoordinates, maxCoordinates);
-    }
-
-    public static Area ofMin(Coordinates minCoordinates) {
-        return new Area(minCoordinates, Coordinates.of(Longitude.INCLUSIVE_MAX_VALUE, Latitude.INCLUSIVE_MAX_VALUE));
+    public static Area of(Coordinates minCoordinates) {
+        Domain.validateNotNull(minCoordinates, "An area should have a non null min coordinates");
+        return new Area(minCoordinates, minCoordinates.increment());
     }
 
     public Coordinates getMinCoordinates() {

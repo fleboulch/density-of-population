@@ -28,4 +28,21 @@ class LatitudeTest {
         ).isInstanceOf(InvalidValueException.class);
     }
 
+
+    @Test
+    void increment_latitude_should_return_new_incremented_latitude() {
+        Latitude latitude = new Latitude(0);
+        Latitude incrementedLatitude = latitude.increment();
+
+        assertThat(incrementedLatitude).isEqualTo(new Latitude(Axis.INCREMENT));
+    }
+
+    @Test
+    void increment_latitude_should_return_same_latitude_when_max_is_reached() {
+        Latitude latitude = new Latitude(Latitude.INCLUSIVE_MAX_VALUE);
+        Latitude incrementeLatitude = latitude.increment();
+
+        assertThat(incrementeLatitude).isEqualTo(new Latitude(Latitude.INCLUSIVE_MAX_VALUE));
+    }
+
 }

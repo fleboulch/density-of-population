@@ -28,4 +28,20 @@ class LongitudeTest {
         ).isInstanceOf(InvalidValueException.class);
     }
 
+    @Test
+    void increment_longitude_should_return_new_longitude() {
+        Longitude longitude = new Longitude(0);
+        Longitude incrementedLongitude = longitude.increment();
+
+        assertThat(incrementedLongitude).isEqualTo(new Longitude(Axis.INCREMENT));
+    }
+
+    @Test
+    void increment_longitude_should_return_same_longitude_when_max_is_reached() {
+        Longitude longitude = new Longitude(Longitude.INCLUSIVE_MAX_VALUE);
+        Longitude incrementedLongitude = longitude.increment();
+
+        assertThat(incrementedLongitude).isEqualTo(new Longitude(Longitude.INCLUSIVE_MAX_VALUE));
+    }
+
 }
