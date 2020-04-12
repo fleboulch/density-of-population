@@ -6,8 +6,8 @@ import java.util.Objects;
 
 public class Longitude {
 
-    private static final int INCLUSIVE_MIN_VALUE = -180;
-    private static final int INCLUSIVE_MAX_VALUE = 180;
+    public static final int INCLUSIVE_MIN_VALUE = -180;
+    public static final int INCLUSIVE_MAX_VALUE = 180;
 
     private final double value;
 
