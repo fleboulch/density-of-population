@@ -1,0 +1,56 @@
+plugins {
+    id "java"
+    id "com.adarshr.test-logger" version "2.0.0"
+    id "jacoco"
+}
+
+group = "com.fleboulch"
+description = "density-population"
+version = "1.0-SNAPSHOT"
+
+sourceCompatibility = 13
+targetCompatibility = 13
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+    exclude "**/*IntTest*"
+    jvmArgs '-Djunit.jupiter.displayname.generator.default=org.junit.jupiter.api.DisplayNameGenerator$ReplaceUnderscores'
+}
+
+task integrationTest(type: Test) {
+    useJUnitPlatform()
+    description = "Execute integration tests."
+    group = "verification"
+    include "**/*IntTest*"
+
+}
+
+testlogger {
+    theme = "mocha"
+    slowThreshold = 1000
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+
+        xml.destination file("$buildDir/reports/jacoco/report.xml")
+    }
+}
+
+check.dependsOn integrationTest, jacocoTestReport
+
+dependencies {
+
+    // test dependencies
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit_version}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit_version}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junit_version}"
+    testImplementation "org.assertj:assertj-core:3.14.0"
+
+}
