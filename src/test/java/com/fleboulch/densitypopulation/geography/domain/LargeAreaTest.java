@@ -11,7 +11,7 @@ class LargeAreaTest {
         Coordinates minCoordinates = Coordinates.of(0, 0);
         LargeArea largeArea = LargeArea.of(minCoordinates);
 
-        assertThat(largeArea.getMinCoordinates()).isEqualTo(minCoordinates);
-        assertThat(largeArea.getMaxCoordinates()).isEqualTo(Coordinates.of(Longitude.INCLUSIVE_MAX_VALUE, Latitude.INCLUSIVE_MAX_VALUE));
+        assertThat(largeArea.getInclusiveMinCoordinates()).isEqualTo(minCoordinates);
+        assertThat(largeArea.getInclusiveMaxCoordinates()).isEqualTo(Coordinates.of(Longitude.INCLUSIVE_MAX_VALUE, Latitude.INCLUSIVE_MAX_VALUE));
     }
 }

@@ -23,8 +23,8 @@ class AreaTest {
     void area_should_have_valid_increment() {
         Area parisArea = Area.of(PARIS_MIN_COORDINATES);
 
-        assertThat(parisArea.getMinCoordinates()).isEqualTo(PARIS_MIN_COORDINATES);
-        assertThat(parisArea.getMaxCoordinates()).isEqualTo(PARIS_MAX_COORDINATES);
+        assertThat(parisArea.getInclusiveMinCoordinates()).isEqualTo(PARIS_MIN_COORDINATES);
+        assertThat(parisArea.getInclusiveMaxCoordinates()).isEqualTo(PARIS_MAX_COORDINATES);
     }
 
     @Test
@@ -32,6 +32,19 @@ class AreaTest {
         assertThatThrownBy(
                 () -> Area.of(null)
         ).isInstanceOf(DomainException.class);
+    }
+
+    @Test
+    void france_area_should_contain_paris_pois() {
+        Area france = LargeArea.of(Coordinates.of(0, 0));
+        Poi parisPoi1 = new Poi("id1", PARIS_MIN_COORDINATES);
+        Poi parisPoi2 = new Poi("id2", PARIS_MAX_COORDINATES);
+        boolean contains1 = france.contains(parisPoi1);
+        boolean contains2 = france.contains(parisPoi2);
+
+        assertThat(contains1).isTrue();
+        assertThat(contains2).isTrue();
+
     }
 
 }

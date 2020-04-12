@@ -43,4 +43,5 @@ public class Poi {
                 ", coordinates=" + coordinates +
                 '}';
     }
+
 }

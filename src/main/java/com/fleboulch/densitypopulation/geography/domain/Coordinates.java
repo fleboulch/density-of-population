@@ -18,6 +18,15 @@ public class Coordinates {
         return new Coordinates(new Longitude(longitude), new Latitude(latitude));
     }
 
+    public Coordinates increment() {
+        return new Coordinates(this.longitude.increment(), this.latitude.increment());
+    }
+
+    public boolean between(Coordinates inclusiveMinCoordinates, Coordinates inclusiveMaxCoordinates) {
+        return longitude.between(inclusiveMinCoordinates.longitude, inclusiveMaxCoordinates.longitude)
+                && latitude.between(inclusiveMinCoordinates.latitude, inclusiveMaxCoordinates.latitude);
+    }
+
     public Longitude getLongitude() {
         return longitude;
     }
@@ -48,7 +57,4 @@ public class Coordinates {
                 '}';
     }
 
-    public Coordinates increment() {
-        return new Coordinates(this.longitude.increment(), this.latitude.increment());
-    }
 }

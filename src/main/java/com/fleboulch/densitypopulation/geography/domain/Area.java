@@ -6,25 +6,29 @@ import java.util.Objects;
 
 public class Area {
 
-    private final Coordinates minCoordinates;
-    private final Coordinates maxCoordinates;
+    private final Coordinates inclusiveMinCoordinates;
+    private final Coordinates inclusiveMaxCoordinates;
 
-    protected Area(Coordinates minCoordinates, Coordinates maxCoordinates) {
-        this.minCoordinates = Domain.validateNotNull(minCoordinates, "An area should have a non null min coordinates");
-        this.maxCoordinates = Domain.validateNotNull(maxCoordinates, "An area should have a non null max coordinates");;
+    protected Area(Coordinates inclusiveMinCoordinates, Coordinates inclusiveMaxCoordinates) {
+        this.inclusiveMinCoordinates = Domain.validateNotNull(inclusiveMinCoordinates, "An area should have a non null min coordinates");
+        this.inclusiveMaxCoordinates = Domain.validateNotNull(inclusiveMaxCoordinates, "An area should have a non null max coordinates");;
     }
 
-    public static Area of(Coordinates minCoordinates) {
-        Domain.validateNotNull(minCoordinates, "An area should have a non null min coordinates");
-        return new Area(minCoordinates, minCoordinates.increment());
+    public static Area of(Coordinates inclusiveMinCoordinates) {
+        Domain.validateNotNull(inclusiveMinCoordinates, "An area should have a non null min coordinates");
+        return new Area(inclusiveMinCoordinates, inclusiveMinCoordinates.increment());
     }
 
-    public Coordinates getMinCoordinates() {
-        return minCoordinates;
+    public boolean contains(Poi poi) {
+        return poi.getCoordinates().between(inclusiveMinCoordinates, inclusiveMaxCoordinates);
     }
 
-    public Coordinates getMaxCoordinates() {
-        return maxCoordinates;
+    public Coordinates getInclusiveMinCoordinates() {
+        return inclusiveMinCoordinates;
+    }
+
+    public Coordinates getInclusiveMaxCoordinates() {
+        return inclusiveMaxCoordinates;
     }
 
     @Override
@@ -32,20 +36,21 @@ public class Area {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Area area = (Area) o;
-        return minCoordinates.equals(area.minCoordinates) &&
-                maxCoordinates.equals(area.maxCoordinates);
+        return inclusiveMinCoordinates.equals(area.inclusiveMinCoordinates) &&
+                inclusiveMaxCoordinates.equals(area.inclusiveMaxCoordinates);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(minCoordinates, maxCoordinates);
+        return Objects.hash(inclusiveMinCoordinates, inclusiveMaxCoordinates);
     }
 
     @Override
     public String toString() {
         return "Area{" +
-                "minCoordinates=" + minCoordinates +
-                ", maxCoordinates=" + maxCoordinates +
+                "inclusiveMinCoordinates=" + inclusiveMinCoordinates +
+                ", inclusiveMaxCoordinates=" + inclusiveMaxCoordinates +
                 '}';
     }
+
 }

@@ -37,4 +37,8 @@ public abstract class Axis {
     }
 
     public abstract Axis increment();
+
+    public boolean between(Axis inclusiveMinValue, Axis inclusiveMaxValue) {
+        return value >= inclusiveMinValue.value && value <= inclusiveMaxValue.value;
+    }
 }
