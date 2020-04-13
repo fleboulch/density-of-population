@@ -16,7 +16,7 @@ public class Poi {
         this.id = Domain.validateNotNull(id, "Id should not be null for a Poi");
         this.coordinates = Domain.validateNotNull(coordinates, "Coordinates should not be null for a Poi");
     }
-    
+
     public Set<Area> findNearestAreas() {
         Set<Coordinates> nearestCoordinates = coordinates.nearest();
         return nearestCoordinates.stream()

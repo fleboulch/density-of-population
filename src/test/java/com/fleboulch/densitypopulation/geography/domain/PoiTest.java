@@ -43,10 +43,37 @@ class PoiTest {
     }
 
     @Test
-    void it_should_return_one_nearest_are_when_poi_is_not_in_a_border() {
+    void it_should_return_one_nearest_area_when_poi_is_not_in_a_border() {
         Poi poi = new Poi("not border", Coordinates.of(0.4, 0.4));
         Set<Area> nearestAreas = poi.findNearestAreas();
 
-        assertThat(nearestAreas).containsExactly(Area.of(Coordinates.of(0, 0)));
+        assertThat(nearestAreas).containsExactlyInAnyOrder(Area.of(Coordinates.of(0, 0)));
+    }
+
+    @Test
+    void it_should_return_two_nearest_areas_when_poi_is_in_a_border() {
+        Poi poi = new Poi("long border", Coordinates.of(11, 0.8));
+        Set<Area> nearestAreas = poi.findNearestAreas();
+
+        assertThat(nearestAreas).containsExactlyInAnyOrder(
+                Area.of(Coordinates.of(10.5, 0.5)),
+                Area.of(Coordinates.of(11, 0.5))
+
+        );
+    }
+
+    @Test
+    void it_should_return_four_nearest_areas_when_poi_is_in_a_border() {
+        Poi poi = new Poi("long and lat borders", Coordinates.of(11, 2));
+        Set<Area> nearestAreas = poi.findNearestAreas();
+
+        assertThat(nearestAreas).containsExactlyInAnyOrder(
+                Area.of(Coordinates.of(10.5, 1.5)),
+                Area.of(Coordinates.of(10.5, 2)),
+                Area.of(Coordinates.of(11, 1.5)),
+                Area.of(Coordinates.of(11, 2))
+
+        );
+
     }
 }
