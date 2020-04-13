@@ -16,13 +16,13 @@ public class Longitude extends Axis {
 
     public Set<Longitude> nearest() {
         double floor = Math.floor(value);
-        if ((value - floor) != INCREMENT && (value - floor) != 0) {
-            if (floor < 0) {
-                return Set.of(new Longitude(floor + INCREMENT));
-            }
+        double difference = value - floor;
+        if (difference < INCREMENT && difference != 0) {
             return Set.of(new Longitude(floor));
-
+        } else if (difference > INCREMENT && difference != 0) {
+            return Set.of(new Longitude(floor + INCREMENT));
         }
+
         return Set.of(
                 new Longitude(value - INCREMENT),
                 new Longitude(value)
