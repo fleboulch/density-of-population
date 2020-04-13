@@ -13,8 +13,9 @@ public class InfraFactory {
     public static Poi toDomain(String row) {
         String[] splittedRow = row.split(SPLIT_CHARACTER);
         String id = splittedRow[0].trim();
-        double longitude = Double.parseDouble(splittedRow[1].trim());
-        double latitude = Double.parseDouble(splittedRow[2].trim());
+        double latitude = Double.parseDouble(splittedRow[1].trim());
+        double longitude = Double.parseDouble(splittedRow[2].trim());
+
         return new Poi(id, Coordinates.of(longitude, latitude));
     }
 }

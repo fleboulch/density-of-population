@@ -19,13 +19,13 @@ class InfraFactoryTest {
         String row = "id1\t-48.6\t-37.7";
         Poi poi = InfraFactory.toDomain(row);
 
-        assertThat(poi).isEqualTo(new Poi("id1", Coordinates.of(-48.6, -37.7)));
+        assertThat(poi).isEqualTo(new Poi("id1", Coordinates.of(-37.7, -48.6)));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "id1\t-40\t100",
-            "id1\t200\t40",
+            "id1\t100\t-40",
+            "id1\t40\t200",
     })
     void when_poi_is_not_valid_it_should_fail_to_convert(String row) {
         assertThatThrownBy(
