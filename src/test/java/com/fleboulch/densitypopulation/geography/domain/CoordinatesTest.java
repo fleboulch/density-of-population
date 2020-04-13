@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CoordinatesTest {
@@ -76,6 +78,14 @@ class CoordinatesTest {
 
         assertThat(isBetween).isFalse();
 
+    }
+
+    @Test
+    void a_coordinates_not_in_a_border_should_have_only_one_nearest_coordinates() {
+        Coordinates coordinates = Coordinates.of(0.4, 0.4);
+
+        Set<Coordinates> nearest = coordinates.nearest();
+        assertThat(nearest).containsExactly(Coordinates.of(0, 0));
     }
 
 }

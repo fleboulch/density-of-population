@@ -3,6 +3,9 @@ package com.fleboulch.densitypopulation.geography.domain;
 import com.fleboulch.densitypopulation.kernel.Domain;
 
 import java.util.Objects;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toSet;
 
 public class Poi {
 
@@ -44,4 +47,10 @@ public class Poi {
                 '}';
     }
 
+    public Set<Area> findNearestAreas() {
+        Set<Coordinates> nearestCoordinates = coordinates.nearest();
+        return nearestCoordinates.stream()
+                .map(Area::of)
+                .collect(toSet());
+    }
 }

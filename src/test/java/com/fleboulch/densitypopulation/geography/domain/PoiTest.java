@@ -3,6 +3,8 @@ package com.fleboulch.densitypopulation.geography.domain;
 import com.fleboulch.densitypopulation.kernel.DomainException;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -38,5 +40,13 @@ class PoiTest {
         assertThatThrownBy(
                 () -> new Poi(null, null)
         ).isInstanceOf(DomainException.class);
+    }
+
+    @Test
+    void it_should_return_one_nearest_are_when_poi_is_not_in_a_border() {
+        Poi poi = new Poi("not border", Coordinates.of(0.4, 0.4));
+        Set<Area> nearestAreas = poi.findNearestAreas();
+
+        assertThat(nearestAreas).containsExactly(Area.of(Coordinates.of(0, 0)));
     }
 }

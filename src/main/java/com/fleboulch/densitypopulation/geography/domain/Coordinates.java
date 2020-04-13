@@ -3,6 +3,7 @@ package com.fleboulch.densitypopulation.geography.domain;
 import com.fleboulch.densitypopulation.kernel.Domain;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Coordinates {
 
@@ -57,4 +58,8 @@ public class Coordinates {
                 '}';
     }
 
+    public Set<Coordinates> nearest() {
+        Set<Longitude> nearestLongitudes = longitude.nearest();
+        return Set.of(Coordinates.of(0, 0));
+    }
 }
