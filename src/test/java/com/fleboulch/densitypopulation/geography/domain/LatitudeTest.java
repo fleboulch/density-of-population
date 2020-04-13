@@ -3,7 +3,10 @@ package com.fleboulch.densitypopulation.geography.domain;
 import com.fleboulch.densitypopulation.kernel.exception.InvalidValueException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -43,6 +46,34 @@ class LatitudeTest {
         Latitude incrementeLatitude = latitude.increment();
 
         assertThat(incrementeLatitude).isEqualTo(new Latitude(Latitude.INCLUSIVE_MAX_VALUE));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "0.4, 0",
+            "-12.4, -12.5",
+            "-5.8, -6",
+            "22.9, 22.5"
+    })
+    void latitude_with_no_border_should_return_only_one_latitude(double value, double expectedValue) {
+        Latitude latitude = new Latitude(value);
+        Set<Latitude> nearest = latitude.nearestLatitudes();
+
+        assertThat(nearest).containsExactlyInAnyOrder(new Latitude(expectedValue));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "0.5, 0, 0.5",
+            "-1.5, -2, -1.5",
+            "-1.0, -1.0, -1.5",
+            "11.0, 10.5, 11.0"
+    })
+    void latitude_with_a_border_should_return_two_latitudes(double value, double expectedValue1, double expectedValue2) {
+        Latitude latitude = new Latitude(value);
+        Set<Latitude> nearest = latitude.nearestLatitudes();
+
+        assertThat(nearest).containsExactlyInAnyOrder(new Latitude(expectedValue1), new Latitude(expectedValue2));
     }
 
 }

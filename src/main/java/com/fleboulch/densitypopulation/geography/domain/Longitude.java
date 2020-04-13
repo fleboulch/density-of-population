@@ -4,6 +4,8 @@ import com.fleboulch.densitypopulation.kernel.Domain;
 
 import java.util.Set;
 
+import static java.util.stream.Collectors.toSet;
+
 public class Longitude extends Axis {
 
     public static final int INCLUSIVE_MIN_VALUE = -180;
@@ -14,20 +16,11 @@ public class Longitude extends Axis {
         Domain.validateAttributeBetween(INCLUSIVE_MIN_VALUE, INCLUSIVE_MAX_VALUE, value, "Longitude value should be valid");
     }
 
-    public Set<Longitude> nearest() {
-        double floor = Math.floor(value);
-        double difference = value - floor;
-        if (difference < INCREMENT && difference != 0) {
-            return Set.of(new Longitude(floor));
-        } else if (difference > INCREMENT && difference != 0) {
-            return Set.of(new Longitude(floor + INCREMENT));
-        }
-
-        return Set.of(
-                new Longitude(value - INCREMENT),
-                new Longitude(value)
-        );
-
+    public Set<Longitude> nearestLongitudes() {
+        Set<Double> nearest = nearest();
+        return nearest.stream()
+                .map(Longitude::new)
+                .collect(toSet());
     }
 
     @Override

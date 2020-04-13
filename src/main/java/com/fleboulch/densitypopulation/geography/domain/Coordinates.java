@@ -28,6 +28,12 @@ public class Coordinates {
                 && latitude.between(inclusiveMinCoordinates.latitude, inclusiveMaxCoordinates.latitude);
     }
 
+    public Set<Coordinates> nearest() {
+        Set<Longitude> nearestLongitudes = longitude.nearestLongitudes();
+        Set<Latitude> nearestLatitudes = latitude.nearestLatitudes();
+        return Set.of(Coordinates.of(0, 0));
+    }
+
     public Longitude getLongitude() {
         return longitude;
     }
@@ -58,8 +64,4 @@ public class Coordinates {
                 '}';
     }
 
-    public Set<Coordinates> nearest() {
-        Set<Longitude> nearestLongitudes = longitude.nearest();
-        return Set.of(Coordinates.of(0, 0));
-    }
 }
