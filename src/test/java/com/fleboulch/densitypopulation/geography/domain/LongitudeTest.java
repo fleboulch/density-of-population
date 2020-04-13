@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,7 +57,7 @@ class LongitudeTest {
     })
     void longitude_with_no_border_should_return_only_one_longitude(double value, double expectedValue) {
         Longitude longitude = new Longitude(value);
-        Set<Longitude> nearest = longitude.nearestLongitudes();
+        List<Longitude> nearest = longitude.nearestLongitudes();
 
         assertThat(nearest).containsExactlyInAnyOrder(new Longitude(expectedValue));
     }
@@ -70,7 +71,7 @@ class LongitudeTest {
     })
     void longitude_with_a_border_should_return_two_longitudes(double value, double expectedValue1, double expectedValue2) {
         Longitude longitude = new Longitude(value);
-        Set<Longitude> nearest = longitude.nearestLongitudes();
+        List<Longitude> nearest = longitude.nearestLongitudes();
 
         assertThat(nearest).containsExactlyInAnyOrder(new Longitude(expectedValue1), new Longitude(expectedValue2));
     }

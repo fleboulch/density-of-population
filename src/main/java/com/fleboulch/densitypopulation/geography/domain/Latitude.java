@@ -2,7 +2,9 @@ package com.fleboulch.densitypopulation.geography.domain;
 
 import com.fleboulch.densitypopulation.kernel.Domain;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -16,11 +18,11 @@ public class Latitude extends Axis {
         Domain.validateAttributeBetween(INCLUSIVE_MIN_VALUE, INCLUSIVE_MAX_VALUE, value, "Latitude value should be valid");
     }
 
-    public Set<Latitude> nearestLatitudes() {
+    public List<Latitude> nearestLatitudes() {
         Set<Double> nearest = nearest();
         return nearest.stream()
                 .map(Latitude::new)
-                .collect(toSet());
+                .collect(Collectors.toList());
     }
 
     @Override

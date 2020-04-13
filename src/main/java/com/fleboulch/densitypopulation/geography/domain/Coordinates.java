@@ -2,6 +2,7 @@ package com.fleboulch.densitypopulation.geography.domain;
 
 import com.fleboulch.densitypopulation.kernel.Domain;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -29,8 +30,8 @@ public class Coordinates {
     }
 
     public Set<Coordinates> nearest() {
-        Set<Longitude> nearestLongitudes = longitude.nearestLongitudes();
-        Set<Latitude> nearestLatitudes = latitude.nearestLatitudes();
+        List<Longitude> nearestLongitudes = longitude.nearestLongitudes();
+        List<Latitude> nearestLatitudes = latitude.nearestLatitudes();
         return Set.of(Coordinates.of(0, 0));
     }
 

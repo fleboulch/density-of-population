@@ -2,8 +2,10 @@ package com.fleboulch.densitypopulation.geography.domain;
 
 import com.fleboulch.densitypopulation.kernel.Domain;
 
+import java.util.List;
 import java.util.Set;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 public class Longitude extends Axis {
@@ -16,11 +18,11 @@ public class Longitude extends Axis {
         Domain.validateAttributeBetween(INCLUSIVE_MIN_VALUE, INCLUSIVE_MAX_VALUE, value, "Longitude value should be valid");
     }
 
-    public Set<Longitude> nearestLongitudes() {
+    public List<Longitude> nearestLongitudes() {
         Set<Double> nearest = nearest();
         return nearest.stream()
                 .map(Longitude::new)
-                .collect(toSet());
+                .collect(toList());
     }
 
     @Override
