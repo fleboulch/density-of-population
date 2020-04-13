@@ -85,7 +85,42 @@ class CoordinatesTest {
         Coordinates coordinates = Coordinates.of(0.4, 0.4);
 
         Set<Coordinates> nearest = coordinates.nearest();
-        assertThat(nearest).containsExactly(Coordinates.of(0, 0));
+        assertThat(nearest).containsExactlyInAnyOrder(Coordinates.of(0, 0));
+    }
+
+    @Test
+    void a_coordinates_with_a_lat_in_a_border_should_have_two_nearest_coordinates() {
+        Coordinates coordinates = Coordinates.of(0.4, 11);
+
+        Set<Coordinates> nearest = coordinates.nearest();
+        assertThat(nearest).containsExactlyInAnyOrder(
+                Coordinates.of(0, 10.5),
+                Coordinates.of(0, 11)
+        );
+    }
+
+    @Test
+    void a_coordinates_with_a_lon_in_a_border_should_have_two_nearest_coordinates() {
+        Coordinates coordinates = Coordinates.of(11, 0.8);
+
+        Set<Coordinates> nearest = coordinates.nearest();
+        assertThat(nearest).containsExactlyInAnyOrder(
+                Coordinates.of( 10.5, 0.5),
+                Coordinates.of( 11, 0.5)
+        );
+    }
+
+    @Test
+    void a_coordinates_with_a_lon_and_a_lat_in_a_border_should_have_four_nearest_coordinates() {
+        Coordinates coordinates = Coordinates.of(11, 2);
+
+        Set<Coordinates> nearest = coordinates.nearest();
+        assertThat(nearest).containsExactlyInAnyOrder(
+                Coordinates.of( 10.5, 1.5),
+                Coordinates.of( 10.5, 2),
+                Coordinates.of( 11, 1.5),
+                Coordinates.of( 11, 2)
+        );
     }
 
 }
