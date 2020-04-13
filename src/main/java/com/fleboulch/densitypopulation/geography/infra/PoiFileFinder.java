@@ -3,13 +3,13 @@ package com.fleboulch.densitypopulation.geography.infra;
 import com.fleboulch.densitypopulation.geography.domain.Poi;
 import com.fleboulch.densitypopulation.geography.infra.helper.FileConverter;
 
-import java.util.List;
+import java.util.Set;
 
 public class PoiFileFinder {
 
     public static final String FILE_PATH = "config.tsv";
 
-    public List<Poi> find() {
+    public Set<Poi> find() {
         return FileConverter.toDomain(FILE_PATH);
     }
 

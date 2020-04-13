@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -30,9 +31,9 @@ class GeographyAlgoTest {
 
     @Test
     void when_poi_is_not_inside_area_it_should_return_an_empty_list() {
-        when(poiFileFinder.find()).thenReturn(List.of(new Poi("id1", Coordinates.of(-1, -1))));
+        when(poiFileFinder.find()).thenReturn(Set.of(new Poi("id1", Coordinates.of(-1, -1))));
 
-        List<Poi> pois = geographyAlgo.fetchPoiInside(LargeArea.of(Coordinates.of(0, 0)));
+        Set<Poi> pois = geographyAlgo.fetchPoiInside(LargeArea.of(Coordinates.of(0, 0)));
 
         assertThat(pois).isEmpty();
     }
@@ -40,10 +41,11 @@ class GeographyAlgoTest {
     @Test
     void when_poi_is_inside_area_it_should_return_the_poi() {
         Poi poi1 = new Poi("id1", Coordinates.of(0, 0));
-        when(poiFileFinder.find()).thenReturn(List.of(poi1));
+        when(poiFileFinder.find()).thenReturn(Set.of(poi1));
 
-        List<Poi> pois = geographyAlgo.fetchPoiInside(LargeArea.of(Coordinates.of(0, 0)));
+        Set<Poi> pois = geographyAlgo.fetchPoiInside(LargeArea.of(Coordinates.of(0, 0)));
 
         assertThat(pois).containsExactly(poi1);
     }
+
 }

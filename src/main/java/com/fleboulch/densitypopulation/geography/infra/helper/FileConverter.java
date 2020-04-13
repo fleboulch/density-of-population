@@ -5,29 +5,29 @@ import com.fleboulch.densitypopulation.geography.infra.InfraFactory;
 
 import java.io.*;
 import java.net.URL;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
-import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
+import static java.util.stream.Collectors.toSet;
 
 public class FileConverter {
 
     private FileConverter() {
     }
 
-    public static List<Poi> toDomain(String filePath) {
+    public static Set<Poi> toDomain(String filePath) {
         File file = getFileFromResources(filePath);
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
 
             return br.lines()
                     .skip(1) // skip header
                     .map(InfraFactory::toDomain)
-                    .collect(Collectors.toList());
+                    .collect(toSet());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return emptyList();
+        return emptySet();
     }
 
     private static File getFileFromResources(String filePath) {

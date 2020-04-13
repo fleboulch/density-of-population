@@ -10,8 +10,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Set;
 
 import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -31,7 +33,7 @@ class CommandLineRunnerTest {
 
     @Test
     void it_should_succeed() {
-        when(geographyAlgo.fetchPoiInside(any())).thenReturn(emptyList());
+        when(geographyAlgo.fetchPoiInside(any())).thenReturn(emptySet());
         String response = commandLineRunner.computeNbPoi("{\"min_lat\": 6.5,\n" +
                 "\"min_lon\": -7}");
 
@@ -47,8 +49,12 @@ class CommandLineRunnerTest {
         assertThat(response).isEqualTo("{\"value\":4}");
     }
 
-    private List<Poi> buildPois() {
-        Poi poi = new Poi("id", Coordinates.of(0, 0));
-        return List.of(poi, poi, poi, poi);
+    private Set<Poi> buildPois() {
+        return Set.of(
+                new Poi("id1", Coordinates.of(0, 0)),
+                new Poi("id2", Coordinates.of(1, 0)),
+                new Poi("id3", Coordinates.of(2, 0)),
+                new Poi("id4", Coordinates.of(3, 0))
+        );
     }
 }
