@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toSet;
-
 public class Latitude extends Axis {
 
     public static final int INCLUSIVE_MIN_VALUE = -90;

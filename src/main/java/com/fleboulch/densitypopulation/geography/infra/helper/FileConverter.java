@@ -7,7 +7,6 @@ import java.io.*;
 import java.net.URL;
 import java.util.Set;
 
-import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 
 public class FileConverter {

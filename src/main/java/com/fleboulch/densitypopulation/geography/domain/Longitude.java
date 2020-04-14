@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
 
 public class Longitude extends Axis {
 
