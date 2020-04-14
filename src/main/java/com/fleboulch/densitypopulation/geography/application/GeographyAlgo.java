@@ -5,10 +5,9 @@ import com.fleboulch.densitypopulation.geography.domain.LargeArea;
 import com.fleboulch.densitypopulation.geography.domain.Poi;
 import com.fleboulch.densitypopulation.geography.infra.PoiFileFinder;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -31,7 +30,7 @@ public class GeographyAlgo {
     public Set<Area> fetchDensestArea(int nbArea) {
         Set<Poi> pois = poiFileFinder.find();
 
-        Map<Area, Integer> map = computePoisIntoMap(pois);
+        Map<Area, Long> map = computePoisIntoMap(pois);
 
         return map.entrySet()
                 .stream()
@@ -41,16 +40,12 @@ public class GeographyAlgo {
                 .collect(toSet());
     }
 
-    private Map<Area, Integer> computePoisIntoMap(Set<Poi> pois) {
-        Map<Area, Integer> map = new HashMap<>();
-        for (Poi poi : pois) {
-            Set<Area> areas = poi.findNearestAreas();
-            for (Area area : areas) {
-                int count = map.getOrDefault(area, 0);
-                map.put(area, count + 1);
-            }
-        }
-        return map;
+    private Map<Area, Long> computePoisIntoMap(Set<Poi> pois) {
+
+        return pois.stream()
+                .flatMap(Poi::findNearestAreas)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
     }
 
 }

@@ -3,7 +3,7 @@ package com.fleboulch.densitypopulation.geography.domain;
 import com.fleboulch.densitypopulation.kernel.DomainException;
 import org.junit.jupiter.api.Test;
 
-import java.util.Set;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -45,7 +45,7 @@ class PoiTest {
     @Test
     void it_should_return_one_nearest_area_when_poi_is_not_in_a_border() {
         Poi poi = new Poi("not border", Coordinates.of(0.4, 0.4));
-        Set<Area> nearestAreas = poi.findNearestAreas();
+        Stream<Area> nearestAreas = poi.findNearestAreas();
 
         assertThat(nearestAreas).containsExactlyInAnyOrder(Area.of(Coordinates.of(0, 0)));
     }
@@ -53,7 +53,7 @@ class PoiTest {
     @Test
     void it_should_return_two_nearest_areas_when_poi_is_in_a_border() {
         Poi poi = new Poi("long border", Coordinates.of(11, 0.8));
-        Set<Area> nearestAreas = poi.findNearestAreas();
+        Stream<Area> nearestAreas = poi.findNearestAreas();
 
         assertThat(nearestAreas).containsExactlyInAnyOrder(
                 Area.of(Coordinates.of(10.5, 0.5)),
@@ -65,7 +65,7 @@ class PoiTest {
     @Test
     void it_should_return_four_nearest_areas_when_poi_is_in_a_border() {
         Poi poi = new Poi("long and lat borders", Coordinates.of(11, 2));
-        Set<Area> nearestAreas = poi.findNearestAreas();
+        Stream<Area> nearestAreas = poi.findNearestAreas();
 
         assertThat(nearestAreas).containsExactlyInAnyOrder(
                 Area.of(Coordinates.of(10.5, 1.5)),

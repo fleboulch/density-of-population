@@ -4,6 +4,7 @@ import com.fleboulch.densitypopulation.kernel.Domain;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -17,11 +18,10 @@ public class Poi {
         this.coordinates = Domain.validateNotNull(coordinates, "Coordinates should not be null for a Poi");
     }
 
-    public Set<Area> findNearestAreas() {
+    public Stream<Area> findNearestAreas() {
         Set<Coordinates> nearestCoordinates = coordinates.nearest();
         return nearestCoordinates.stream()
-                .map(Area::of)
-                .collect(toSet());
+                .map(Area::of);
     }
 
     public String getId() {
