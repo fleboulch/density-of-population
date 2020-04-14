@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/fleboulch/density-of-population/branch/master/graph/badge.svg)](https://codecov.io/gh/fleboulch/density-of-population)
+
 # Density of population
 
 ## Prerequisites
