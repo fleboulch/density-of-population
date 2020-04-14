@@ -26,3 +26,8 @@
 ## TSV file location
 
 When you run the project the POIs are defined in a tsv file located in `src/main/resources/config.tsv`
+
+## Code coverage
+
+Code coverage metrics from Codecov and IntelliJ are not the same.  
+Codecov: 82% vs IntelliJ: 88%
