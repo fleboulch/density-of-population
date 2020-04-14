@@ -11,12 +11,22 @@ public class Area {
 
     protected Area(Coordinates inclusiveMinCoordinates, Coordinates inclusiveMaxCoordinates) {
         this.inclusiveMinCoordinates = Domain.validateNotNull(inclusiveMinCoordinates, "An area should have a non null min coordinates");
-        this.inclusiveMaxCoordinates = Domain.validateNotNull(inclusiveMaxCoordinates, "An area should have a non null max coordinates");;
+        this.inclusiveMaxCoordinates = Domain.validateNotNull(inclusiveMaxCoordinates, "An area should have a non null max coordinates");
     }
 
     public static Area of(Coordinates inclusiveMinCoordinates) {
         Domain.validateNotNull(inclusiveMinCoordinates, "An area should have a non null min coordinates");
+        checkValid(inclusiveMinCoordinates);
         return new Area(inclusiveMinCoordinates, inclusiveMinCoordinates.increment());
+    }
+
+    private static void checkValid(Coordinates inclusiveMinCoordinates) {
+        if (
+                inclusiveMinCoordinates.getLongitude().getValue() > (Longitude.INCLUSIVE_MAX_VALUE - Axis.INCREMENT) ||
+                inclusiveMinCoordinates.getLatitude().getValue() > (Latitude.INCLUSIVE_MAX_VALUE - Axis.INCREMENT)
+        ) {
+            throw new InvalidMinCoordinatesAreaException(inclusiveMinCoordinates);
+        }
     }
 
     public boolean contains(Poi poi) {

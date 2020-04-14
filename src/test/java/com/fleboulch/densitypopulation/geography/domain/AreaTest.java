@@ -2,6 +2,8 @@ package com.fleboulch.densitypopulation.geography.domain;
 
 import com.fleboulch.densitypopulation.kernel.DomainException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -32,6 +34,19 @@ class AreaTest {
         assertThatThrownBy(
                 () -> Area.of(null)
         ).isInstanceOf(DomainException.class);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "180, 90",
+            "179.6, 89.6",
+            "1, 89.6",
+            "179.6, 1",
+    })
+    void an_area_should_have_valid_min_coordinates(double invalidLongitudeValue, double invalidLatitudeValue) {
+        assertThatThrownBy(
+                () -> Area.of(Coordinates.of(invalidLongitudeValue, invalidLatitudeValue))
+        ).isInstanceOf(InvalidMinCoordinatesAreaException.class);
     }
 
     @Test
