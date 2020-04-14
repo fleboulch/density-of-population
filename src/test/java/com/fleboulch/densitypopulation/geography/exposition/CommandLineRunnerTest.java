@@ -1,6 +1,7 @@
 package com.fleboulch.densitypopulation.geography.exposition;
 
 import com.fleboulch.densitypopulation.geography.application.GeographyAlgo;
+import com.fleboulch.densitypopulation.geography.domain.Area;
 import com.fleboulch.densitypopulation.geography.domain.Coordinates;
 import com.fleboulch.densitypopulation.geography.domain.Poi;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,13 +10,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.Set;
 
-import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,6 +47,21 @@ class CommandLineRunnerTest {
                 "\"min_lon\": -7}");
 
         assertThat(response).isEqualTo("{\"value\":4}");
+    }
+
+    @Test
+    void it_should_succeed_to_fetch_densest_areas() {
+        when(geographyAlgo.fetchDensestArea(eq(1))).thenReturn(buildAreas());
+        String response = commandLineRunner.fetchDensestAreas("{\"n\": 1}");
+
+        assertThat(response).isEqualTo("[{\"min_lat\":6.5,\"max_lat\":7.0,\"min_lon\":-7.0,\"max_lon\":-6.5}]");
+    }
+
+    private Set<Area> buildAreas() {
+        return Set.of(
+                Area.of(Coordinates.of(-7.0, 6.5))
+        );
+
     }
 
     private Set<Poi> buildPois() {

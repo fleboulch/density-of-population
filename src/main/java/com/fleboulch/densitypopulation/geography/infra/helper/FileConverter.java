@@ -25,9 +25,8 @@ public class FileConverter {
                     .collect(toSet());
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("IO exception", e);
         }
-        return emptySet();
     }
 
     private static File getFileFromResources(String filePath) {

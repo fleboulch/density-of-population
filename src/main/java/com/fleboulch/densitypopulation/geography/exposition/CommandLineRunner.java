@@ -24,7 +24,7 @@ public class CommandLineRunner {
         return toResponse(countPois);
     }
 
-    public String fetchDensestArea(String nbAreaRequest) {
+    public String fetchDensestAreas(String nbAreaRequest) {
         int nbArea = ApplicationFactory.toNbAreaDomain(nbAreaRequest);
 
         Set<Area> densestAreas = geographyAlgo.fetchDensestArea(nbArea);

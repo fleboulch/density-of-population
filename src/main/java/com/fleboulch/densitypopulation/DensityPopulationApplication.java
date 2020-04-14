@@ -17,7 +17,7 @@ public class DensityPopulationApplication {
             String json = commandLineRunner.computeNbPoi(input);
             System.out.println(json);
         } else if (Objects.equals(type, "--densest")) {
-            String json = commandLineRunner.fetchDensestArea(input);
+            String json = commandLineRunner.fetchDensestAreas(input);
             System.out.println(json);
         }
 
