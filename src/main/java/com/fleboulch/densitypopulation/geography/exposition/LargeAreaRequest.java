@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LargeAreaInput {
+public class LargeAreaRequest {
 
     @JsonProperty("min_lat")
     private double minLat;

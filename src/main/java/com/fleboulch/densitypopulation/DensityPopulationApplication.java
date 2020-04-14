@@ -10,11 +10,14 @@ public class DensityPopulationApplication {
 
     public static void main(String[] args) {
         CommandLineRunner commandLineRunner = new CommandLineRunner(new GeographyAlgo(new PoiFileFinder()));
-        String type = args[0];
-        String input = args[1];
+        String type = args[0].trim();
+        String input = args[1].trim();
 
         if (Objects.equals(type, "--nbpoi")) {
             String json = commandLineRunner.computeNbPoi(input);
+            System.out.println(json);
+        } else if (Objects.equals(type, "--densest")) {
+            String json = commandLineRunner.fetchDensestArea(input);
             System.out.println(json);
         }
 
