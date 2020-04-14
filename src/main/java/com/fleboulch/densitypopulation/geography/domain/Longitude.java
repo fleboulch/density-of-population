@@ -34,9 +34,6 @@ public class Longitude extends Axis {
 
     @Override
     public Longitude increment() {
-        if (value == INCLUSIVE_MAX_VALUE) {
-            return new Longitude(value);
-        }
-        return new Longitude(value + INCREMENT);
+        return new Longitude(increment(INCLUSIVE_MAX_VALUE));
     }
 }

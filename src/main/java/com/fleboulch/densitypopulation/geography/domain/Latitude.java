@@ -34,10 +34,7 @@ public class Latitude extends Axis {
 
     @Override
     public Latitude increment() {
-        if (value == INCLUSIVE_MAX_VALUE) {
-            return new Latitude(value);
-        }
-        return new Latitude(value + INCREMENT);
+        return new Latitude(increment(INCLUSIVE_MAX_VALUE));
     }
 
 }

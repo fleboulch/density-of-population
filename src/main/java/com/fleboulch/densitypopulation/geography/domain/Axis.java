@@ -32,6 +32,13 @@ public abstract class Axis {
 
     }
 
+    protected double increment(double maxValue) {
+        if (value == maxValue) {
+            return value;
+        }
+        return value + INCREMENT;
+    }
+
     public double getValue() {
         return value;
     }
