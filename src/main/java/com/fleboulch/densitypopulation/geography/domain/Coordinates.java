@@ -5,7 +5,6 @@ import com.fleboulch.densitypopulation.kernel.Domain;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
@@ -34,29 +33,15 @@ public class Coordinates {
     }
 
     public Set<Coordinates> nearest() {
-        List<Longitude> nearestLongitudes = longitude.nearestLongitudes();
-        List<Latitude> nearestLatitudes = latitude.nearestLatitudes();
-        if (nearestLatitudes.size() >= 1 && nearestLongitudes.size() == 1) {
-            return nearestLatitudes.stream()
-                    .map(lat -> new Coordinates(nearestLongitudes.get(0), lat))
-                    .collect(toSet());
-        }
-        if (nearestLongitudes.size() > 1 && nearestLatitudes.size() == 1) {
-            return nearestLongitudes.stream()
-                    .map(lon -> new Coordinates(lon, nearestLatitudes.get(0)))
-                    .collect(toSet());
-        }
 
-        Set<Coordinates> firstCombination = nearestLatitudes.stream()
-                .map(lat -> new Coordinates(nearestLongitudes.get(0), lat))
+        return latitude.nearestLatitudes().stream()
+                .flatMap(lat -> buildCoordinatesFromLatitude(longitude.nearestLongitudes(), lat))
                 .collect(toSet());
-        Set<Coordinates> secondCombination = nearestLatitudes.stream()
-                .map(lat -> new Coordinates(nearestLongitudes.get(1), lat))
-                .collect(toSet());
+    }
 
-        return Stream.concat(firstCombination.stream(), secondCombination.stream())
-                .collect(Collectors.toSet());
-
+    private Stream<Coordinates> buildCoordinatesFromLatitude(List<Longitude> nearestLongitudes, Latitude lat) {
+        return nearestLongitudes.stream()
+                .map(lon -> Coordinates.of(lon.getValue(), lat.getValue()));
     }
 
     public Longitude getLongitude() {
